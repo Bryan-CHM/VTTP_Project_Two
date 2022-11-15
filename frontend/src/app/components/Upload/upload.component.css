@@ -19,6 +19,10 @@
     margin-left: -10px;
 }
 
+nav{
+  font-size: 1.5rem;
+}
+
 .logo{
   height: 35px;
   width: 35px;
@@ -33,6 +37,10 @@
 h2 {
   text-align: center;
   margin-bottom: 20px;
+}
+
+table{
+  font-size: 1.25rem;
 }
 
 

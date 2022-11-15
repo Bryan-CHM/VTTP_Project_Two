@@ -19,6 +19,10 @@
     margin-left: -10px;
 }
 
+nav{
+  font-size: 1.5rem;
+}
+
 .logo{
   height: 35px;
   width: 35px;
@@ -35,6 +39,7 @@ table {
   display: block;
   max-height: 80vh;
   overflow: auto;
+  font-size: 1.25rem;
 }
 
 th {
@@ -54,18 +59,21 @@ th {
   position: absolute;
     top: 93%;
     left: 3vw;
+    font-size: 1.5rem;
 }
 
 .add-to-cart-btn{
   position: absolute;
     top: 93%;
     left: 45vw;
+    font-size: 1.5rem;
 }
 
 .add-to-borrow-cart-btn{
   position: absolute;
   top: 93%;
   left: 45vw;
+  font-size: 1.5rem;
 }
 
 /* .like-btn {

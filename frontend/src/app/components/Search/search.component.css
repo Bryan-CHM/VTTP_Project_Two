@@ -19,6 +19,10 @@
     margin-left: -10px;
 }
 
+nav{
+  font-size: 1.5rem;
+}
+
 .logo{
   height: 35px;
   width: 35px;

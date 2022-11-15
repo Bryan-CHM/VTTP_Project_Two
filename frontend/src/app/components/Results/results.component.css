@@ -19,6 +19,10 @@
     margin-left: -10px;
 }
 
+nav{
+  font-size: 1.5rem;
+}
+
 .logo{
   height: 35px;
   width: 35px;
@@ -31,14 +35,16 @@
 }
 .center-next{
   position: absolute;
-  top: 95%;
+  top: 93%;
   left: 51vw;
+  font-size: 1.5rem;
 }
 
 .center-prev{
   position: absolute;
-  top: 95%;
+  top: 93%;
   left: 45vw;
+  font-size: 1.5rem;
 }
 
 .card-deck{

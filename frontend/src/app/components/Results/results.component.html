@@ -70,7 +70,7 @@
   </ng-container>
   <ng-container *ngIf="user.admin == false" >
     <button type="button" class="center-prev" (click)="userPrevPage()" *ngIf="index>0">Back</button>
-    <button type="button" class="center-next" (click)="userNextPage()" >Next</button>
+    <button type="button" class="center-next" (click)="userNextPage()" *ngIf="queriedBooks.length == 20">Next</button>
   </ng-container>
 </div>
 </body>
