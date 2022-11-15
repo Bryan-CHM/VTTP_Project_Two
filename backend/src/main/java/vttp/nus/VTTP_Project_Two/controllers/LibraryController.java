@@ -190,7 +190,6 @@ public class LibraryController {
             for(Book b : books){
                 arrBuilder.add(b.toJsonForUser());
             }
-            String forTheCommit = "";
             return ResponseEntity.ok(arrBuilder.build().toString());
         }
     
