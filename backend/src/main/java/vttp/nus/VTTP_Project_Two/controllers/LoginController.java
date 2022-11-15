@@ -55,8 +55,6 @@ public class LoginController {
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createAccount(@RequestBody String payload){
 
-        System.out.println(">>>>>>>>>>>>> Create Account:" + payload);
-
         InputStream is = new ByteArrayInputStream (payload.getBytes()); 	// Create inputstream
         JsonReader reader = Json.createReader(is);							// Create reader for inputstream
         JsonObject data = reader.readObject();								// Convert string to JSON object
