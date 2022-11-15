@@ -6,7 +6,7 @@ export interface User {
 
 export interface Book {
   title?: string
-  authors?: string[]
+  authors?: string
   description?: string
   thumbnail?: string
   publisher?: string
@@ -14,6 +14,7 @@ export interface Book {
   pageCount?: string
   quantity?: number
   duration?: string
+  uploadImage? : any
 }
 
 export interface LoginResponse{

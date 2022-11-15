@@ -23,4 +23,6 @@ public interface Queries {
     public static final String SQL_GET_USER_BORROWED_BOOKS = "select * from borrow JOIN library ON borrow.book_id = library.book_id where user_id = ? and returned = false";
     public static final String SQL_RETURN_USER_BORROWED_BOOK = "update borrow set returned = true where user_id = ? and book_id = ?";
 
+    public static final String SQL_INSERT_UPLOADED_BOOK = "insert into library(title, authors, description, publisher, published_date, page_count, quantity, uploadedImage) values(?,?,?,?,?,?,?,?)";
+
 }

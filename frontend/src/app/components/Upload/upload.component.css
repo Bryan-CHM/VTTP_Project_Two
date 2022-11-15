@@ -18,3 +18,38 @@
     vertical-align: top;
     margin-left: -10px;
 }
+
+.logo{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+.my-container{
+  margin: 10vh 25vw;
+  height: 85vh;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 15px;
+}
+
+input{
+  width: 100%;
+}
+
+.button-row {
+  text-align-last: end;
+}
+
+
+

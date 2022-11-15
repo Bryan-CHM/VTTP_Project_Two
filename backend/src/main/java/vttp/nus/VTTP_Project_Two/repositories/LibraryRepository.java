@@ -1,5 +1,6 @@
 package vttp.nus.VTTP_Project_Two.repositories;
 
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import vttp.nus.VTTP_Project_Two.models.Book;
 import static vttp.nus.VTTP_Project_Two.repositories.Queries.*;
@@ -46,112 +48,137 @@ public class LibraryRepository {
         }
         return updated;
     }
+
+    public Integer addUploadedBook(Book b){
+        Integer updated = 0;
+        updated += template.update(SQL_INSERT_UPLOADED_BOOK, 
+        b.getTitle().orElse(null),
+        b.getAuthors().orElse(null), 
+        b.getDescription().orElse(null), 
+        b.getPublisher().orElse(null), 
+        b.getPublishedDate().orElse(null), 
+        b.getPageCount().orElse(null), 
+        b.getQuantity().orElse(null),
+        b.getUploadedImageStream().orElse(null));
+
+        return updated;
+    }
     
     public List<Book> getUserListOfBooks(String query){
         List<Book> books = new LinkedList<>();
 
-        final SqlRowSet result = template.queryForRowSet(SQL_GET_USER_BOOKS_BY_QUERY, query, query);
-        while(result.next()){
+        template.query(SQL_GET_USER_BOOKS_BY_QUERY, (ResultSet result) ->{
 
-            Book b = new Book();
+                Book b = new Book();
 
-            if(result.getString("title") != null){
-                b.setTitle(Optional.of(result.getString("title")));
-            }else{
-                b.setTitle(Optional.empty());
-            }
-            if(result.getString("authors") != null){
-                b.setAuthors(Optional.of(result.getString("authors")));
-            }else{
-                b.setAuthors(Optional.empty());
-            }
-            if(result.getString("description") != null){
-                b.setDescription(Optional.of(result.getString("description")));
-            }else{
-                b.setDescription(Optional.empty());
-            }
-            if(result.getString("thumbnail") != null){
-                b.setThumbnail(Optional.of(result.getString("thumbnail")));
-            }else{
-                b.setThumbnail(Optional.empty());
-            }
-            if(result.getString("publisher") != null){
-                b.setPublisher(Optional.of(result.getString("publisher")));
-            }else{
-                b.setPublisher(Optional.empty());
-            }
-            if(result.getString("published_date") != null){
-                b.setPublishedDate(Optional.of(result.getString("published_date")));
-            }else{
-                b.setPublishedDate(Optional.empty());
-            }
-            if(String.valueOf(result.getInt("page_count")) != null){
-                b.setPageCount(Optional.of(result.getInt("page_count")));
-            }else{
-                b.setPageCount(Optional.empty());
-            }
-            if(String.valueOf(result.getInt("quantity")) != null){
-                b.setQuantity(Optional.of(result.getInt("quantity")));
-            }else{
-                b.setQuantity(Optional.empty());
-            }
-            b.setDuration(Optional.empty());
-            books.add(b);
-        }
+                if(result.getString("title") != null){
+                    b.setTitle(Optional.of(result.getString("title")));
+                }else{
+                    b.setTitle(Optional.empty());
+                }
+                if(result.getString("authors") != null){
+                    b.setAuthors(Optional.of(result.getString("authors")));
+                }else{
+                    b.setAuthors(Optional.empty());
+                }
+                if(result.getString("description") != null){
+                    b.setDescription(Optional.of(result.getString("description")));
+                }else{
+                    b.setDescription(Optional.empty());
+                }
+                if(result.getString("thumbnail") != null){
+                    b.setThumbnail(Optional.of(result.getString("thumbnail")));
+                }else{
+                    b.setThumbnail(Optional.empty());
+                }
+                if(result.getString("publisher") != null){
+                    b.setPublisher(Optional.of(result.getString("publisher")));
+                }else{
+                    b.setPublisher(Optional.empty());
+                }
+                if(result.getString("published_date") != null){
+                    b.setPublishedDate(Optional.of(result.getString("published_date")));
+                }else{
+                    b.setPublishedDate(Optional.empty());
+                }
+                if(String.valueOf(result.getInt("page_count")) != null){
+                    b.setPageCount(Optional.of(result.getInt("page_count")));
+                }else{
+                    b.setPageCount(Optional.empty());
+                }
+                if(String.valueOf(result.getInt("quantity")) != null){
+                    b.setQuantity(Optional.of(result.getInt("quantity")));
+                }else{
+                    b.setQuantity(Optional.empty());
+                }
+                if(result.getBytes("uploadedImage") != null){
+                    b.setUploadedImage(Optional.of(result.getBytes("uploadedImage")));
+                }else{
+                    b.setUploadedImage(Optional.empty());
+                }
+                b.setDuration(Optional.empty());
+                books.add(b);
+        }, 
+        query, query
+        );
         return books;
     }
 
     public List<Book> getUserNextListOfBooks(String query, Integer index){
         List<Book> books = new LinkedList<>();
+        template.query(SQL_GET_USER_BOOKS_BY_QUERY_WITH_INDEX, (ResultSet result) ->{
+                Book b = new Book();
 
-        final SqlRowSet result = template.queryForRowSet(SQL_GET_USER_BOOKS_BY_QUERY_WITH_INDEX, query, query, index);
-        while(result.next()){
-
-            Book b = new Book();
-
-            if(result.getString("title") != null){
-                b.setTitle(Optional.of(result.getString("title")));
-            }else{
-                b.setTitle(Optional.empty());
-            }
-            if(result.getString("authors") != null){
-                b.setAuthors(Optional.of(result.getString("authors")));
-            }else{
-                b.setAuthors(Optional.empty());
-            }
-            if(result.getString("description") != null){
-                b.setDescription(Optional.of(result.getString("description")));
-            }else{
-                b.setDescription(Optional.empty());
-            }
-            if(result.getString("thumbnail") != null){
-                b.setThumbnail(Optional.of(result.getString("thumbnail")));
-            }else{
-                b.setThumbnail(Optional.empty());
-            }
-            if(result.getString("publisher") != null){
-                b.setPublisher(Optional.of(result.getString("publisher")));
-            }else{
-                b.setPublisher(Optional.empty());
-            }
-            if(result.getString("published_date") != null){
-                b.setPublishedDate(Optional.of(result.getString("published_date")));
-            }else{
-                b.setPublishedDate(Optional.empty());
-            }
-            if(String.valueOf(result.getInt("page_count")) != null){
-                b.setPageCount(Optional.of(result.getInt("page_count")));
-            }else{
-                b.setPageCount(Optional.empty());
-            }
-            if(String.valueOf(result.getInt("quantity")) != null){
-                b.setQuantity(Optional.of(result.getInt("quantity")));
-            }else{
-                b.setQuantity(Optional.empty());
-            }
-            b.setDuration(Optional.empty());
-            books.add(b);
-        }
+                if(result.getString("title") != null){
+                    b.setTitle(Optional.of(result.getString("title")));
+                }else{
+                    b.setTitle(Optional.empty());
+                }
+                if(result.getString("authors") != null){
+                    b.setAuthors(Optional.of(result.getString("authors")));
+                }else{
+                    b.setAuthors(Optional.empty());
+                }
+                if(result.getString("description") != null){
+                    b.setDescription(Optional.of(result.getString("description")));
+                }else{
+                    b.setDescription(Optional.empty());
+                }
+                if(result.getString("thumbnail") != null){
+                    b.setThumbnail(Optional.of(result.getString("thumbnail")));
+                }else{
+                    b.setThumbnail(Optional.empty());
+                }
+                if(result.getString("publisher") != null){
+                    b.setPublisher(Optional.of(result.getString("publisher")));
+                }else{
+                    b.setPublisher(Optional.empty());
+                }
+                if(result.getString("published_date") != null){
+                    b.setPublishedDate(Optional.of(result.getString("published_date")));
+                }else{
+                    b.setPublishedDate(Optional.empty());
+                }
+                if(String.valueOf(result.getInt("page_count")) != null){
+                    b.setPageCount(Optional.of(result.getInt("page_count")));
+                }else{
+                    b.setPageCount(Optional.empty());
+                }
+                if(String.valueOf(result.getInt("quantity")) != null){
+                    b.setQuantity(Optional.of(result.getInt("quantity")));
+                }else{
+                    b.setQuantity(Optional.empty());
+                }
+                if(result.getBytes("uploadedImage") != null){
+                    b.setUploadedImage(Optional.of(result.getBytes("uploadedImage")));
+                }else{
+                    b.setUploadedImage(Optional.empty());
+                }
+                b.setDuration(Optional.empty());
+                books.add(b);
+        }, 
+        query, query, index
+        );
         return books;
     }
 
@@ -202,12 +229,11 @@ public class LibraryRepository {
         String userId = "";
         List<Book> books = new LinkedList<>();
 
-        SqlRowSet result = template.queryForRowSet(SQL_GET_USER_ID, email);
-            if(result.next()){
-                userId = result.getString("user_id");
+        SqlRowSet userIdResult = template.queryForRowSet(SQL_GET_USER_ID, email);
+            if(userIdResult.next()){
+                userId = userIdResult.getString("user_id");
             }
-        result = template.queryForRowSet(SQL_GET_USER_BORROWED_BOOKS, userId);
-        while(result.next()){
+        template.query(SQL_GET_USER_BORROWED_BOOKS, (ResultSet result) ->{
             Book b = new Book();
 
             if(result.getString("title") != null){
@@ -250,13 +276,20 @@ public class LibraryRepository {
             }else{
                 b.setQuantity(Optional.empty());
             }
-            if(String.valueOf(result.getString("due")) != null){
+            if(result.getString("due") != null){
                 b.setDuration(Optional.of(result.getString("due")));
             }else{
                 b.setDuration(Optional.empty());
             }
+            if(result.getBytes("uploadedImage") != null){
+                b.setUploadedImage(Optional.of(result.getBytes("uploadedImage")));
+            }else{
+                b.setUploadedImage(Optional.empty());
+            }
             books.add(b);
-        }
+        }, 
+        userId
+        );
         return books;
     }
 

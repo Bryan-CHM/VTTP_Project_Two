@@ -12,7 +12,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" [routerLink]="['/']">
-      <img src="../../assets/book.svg" alt="" width="30" height="30">
+      <img src="../../assets/logo.jpg" class="logo" class="logo" alt="" width="30" height="30">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -46,5 +46,55 @@
       </ul>
     </div>
   </nav>
+  <div class="my-container">
+    <h2>Book Details</h2>
+    <form [formGroup]="bookForm" (ngSubmit)="processBook()">
+      <table>
+        <tr>
+          <th><label for="title">Title: </label></th>
+          <td><input type="text" formControlName="title" id="title"></td>
+        </tr>
+        <tr>
+          <th><label for="authors">Authors: </label></th>
+          <td><input type="text" formControlName="authors" id="authors"></td>
+        </tr>
+        <tr>
+          <th><label for="description">Description: </label></th>
+          <td><input type="text" formControlName="description" id="description"></td>
+        </tr>
+        <tr>
+          <th><label for="publisher">Publisher: </label></th>
+          <td><input type="text" formControlName="publisher" id="publisher"></td>
+        </tr>
+        <tr>
+          <th><label for="publishedDate">Published Date: </label></th>
+          <td><input type="date" formControlName="publishedDate" id="publishedDate"></td>
+        </tr>
+        <tr>
+          <th><label for="pageCount">Page Count: </label></th>
+          <td><input type="number" formControlName="pageCount" id="pageCount"></td>
+        </tr>
+        <tr>
+          <th><label for="quantity">Quantity: </label></th>
+          <td><input type="number" formControlName="quantity" id="quantity"></td>
+        </tr>
+        <tr>
+          <th>
+            <label for="exampleFormControlFile1">Image: </label>
+          </th>
+          <td>
+            <div class="form-group">
+              <input type="file" formControlName="uploadImage" class="form-control-file" id="exampleFormControlFile1" accept ="image/*" #file>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="button-row">
+            <button type="submit" [disabled]="bookForm.invalid">Add to Library</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
 </body>
 </html>

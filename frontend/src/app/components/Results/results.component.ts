@@ -27,6 +27,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.sub$ = this.libSvc.onNewSearch.subscribe(
       data =>{
         this.queriedBooks = data
+        for(let i = 0; i<this.queriedBooks.length; i++){
+          const currentByteArray = this.queriedBooks[i].uploadImage
+          if(currentByteArray != null){
+            this.queriedBooks[i].uploadImage = "data:image/png;base64," + currentByteArray
+          }
+        }
     })
   }
 

@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" [routerLink]="['/']">
-    <img src="../../assets/book.svg" alt="" width="30" height="30">
+    <img src="../../assets/logo.jpg" class="logo" alt="" width="30" height="30">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,9 @@
   </div>
 </nav>
 <div class="my-container">
-  Welcome, {{user.email}}
+  <h4>
+    Welcome, {{user.email}}
+  </h4>
   <div class="center" *ngIf="borrowedBooks.length < 1 && user.admin == false">
     <h1>Please borrow a book to begin!</h1>
   </div>
@@ -58,19 +60,25 @@
       <tr>
         <th *ngIf="borrowedBooks.length > 1">Borrowed Books (Total: {{borrowedBooks.length}} books)</th>
         <th *ngIf="borrowedBooks.length == 1">Borrowed Book (Total: {{borrowedBooks.length}} book)</th>
-        <th></th>
-        <th>Timer</th>
+        <th>Title</th>
+        <th>Due in:</th>
         <th>Return Book?</th>
       </tr>
       <br>
     </thead>
     <tbody>
     <tr *ngFor="let book of borrowedBooks; let i = index">
-      <td>
-        <img [src]=book.thumbnail alt="">
+      <td >
+        <img class="book-img" *ngIf="book.thumbnail != null" [src]="book.thumbnail" alt="book cover here">
+        <img class="book-img" *ngIf="book.thumbnail == null && book.uploadImage != null" [src]="book.uploadImage" alt="book cover here">
+        <img class="book-img" *ngIf="book.thumbnail == null && book.uploadImage == null" src="../../../assets/cover-not-found.jpg" alt="book cover here">
       </td>
-      <td>{{book.title}}</td>
-      <td>{{countdown}}</td>
+      <td>
+        <b>{{book.title}}</b>
+      </td>
+      <td>
+        <b>{{countdown[i]}}</b>
+      </td>
       <td><button type="button" (click)=returnBook(book)>Return</button></td>
     </tr>
   </tbody>

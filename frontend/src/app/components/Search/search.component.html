@@ -13,7 +13,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" [routerLink]="['/']">
-      <img src="../../assets/book.svg" alt="" width="30" height="30">
+      <img src="../../assets/logo.jpg" class="logo" alt="" width="30" height="30">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -48,11 +48,13 @@
     </div>
   </nav>
 <div class="my-container">
-  Welcome, {{user.email}}
+  <h4>
+    Welcome, {{user.email}}
+  </h4>
   <div class="center">
     <form [formGroup]="adminSearchForm" (ngSubmit)="processAdminQuery()" *ngIf="user.admin == true">
       <div class="input-group mb-3">
-        <input type="text" class="form-control input-box" placeholder="Search for book to add to library" formControlName="query">
+        <input type="text" class="form-control input-box" placeholder="Search for books to add to library" formControlName="query">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="submit" [disabled]="adminSearchForm.invalid">
             <i class="bi bi-search"></i>
@@ -62,7 +64,7 @@
     </form>
     <form [formGroup]="userSearchForm" (ngSubmit)="processUserQuery()" *ngIf="user.admin == false">
       <div class="input-group mb-3">
-        <input type="text" class="form-control input-box" placeholder="Search for book to borrow" formControlName="query">
+        <input type="text" class="form-control input-box" placeholder="Search for books to borrow" formControlName="query">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="submit" [disabled]="userSearchForm.invalid">
             <i class="bi bi-search"></i>

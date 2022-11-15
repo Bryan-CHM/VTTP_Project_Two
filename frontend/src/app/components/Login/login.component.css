@@ -11,11 +11,11 @@ body {
 	align-items: center;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
-	height: 97.5vh;
-  width: 97.5vw;
-	/* margin: -20px 0 50px; */
+	height: 100vh;
+  width: 100vw;
+  margin: -8px;
   background-image: url(../../../assets/library.jpg);
-  background-size: cover;
+  background-size:auto;
 }
 
 h1 {
@@ -244,7 +244,8 @@ footer a {
     text-decoration: none;
 }
 
-img{
-  height: 7vh;
-  width: 7vw;
+.logo{
+  width: 15vw;
+  border-radius: 50%;
+  margin-bottom: 25px;
 }

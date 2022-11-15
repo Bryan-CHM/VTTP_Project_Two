@@ -23,7 +23,7 @@ create table library(
     published_date VARCHAR (128),
     page_count INT,
     quantity INT,
-    likes INT,
+    uploadedImage BLOB,
     primary key(book_id)
 );
 

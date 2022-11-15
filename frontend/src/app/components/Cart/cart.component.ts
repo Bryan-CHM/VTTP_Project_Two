@@ -53,6 +53,11 @@ export class CartComponent implements OnInit {
         this.cartBooks[i].quantity = Number.parseInt(this.bookCartForm.value.cartInfo[i].quantity)
       }
       this.libSvc.addBooksToLibrary(this.cartBooks)
+      if(this.books.length >1){
+        alert('Books successfully added')
+      }else if(this.books.length == 1){
+        alert('Book successfully added')
+      }
       sessionStorage.removeItem(`books-${this.user.email}`)
       this.router.navigate(['/'])
     }else{
@@ -61,6 +66,11 @@ export class CartComponent implements OnInit {
         this.cartBooks[i].duration = this.bookCartForm.value.cartInfo[i].duration
       }
       this.libSvc.addBorrowedBooks(this.user, this.cartBooks)
+      if(this.books.length >1){
+        alert('Books successfully borrowed')
+      }else if(this.books.length == 1){
+        alert('Book successfully borrowed')
+      }
       sessionStorage.removeItem(`books-${this.user.email}`)
       this.router.navigate(['/'])
     }

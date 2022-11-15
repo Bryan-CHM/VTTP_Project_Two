@@ -11,7 +11,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" [routerLink]="['/']">
-      <img src="../../assets/book.svg" alt="" width="30" height="30">
+      <img src="../../assets/logo.jpg" class="logo" alt="" width="30" height="30">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -49,7 +49,9 @@
     <table>
       <tr>
         <td rowspan="6">
-          <img class="book-img" [src]="book.thumbnail" alt="">
+          <img class="book-img" *ngIf="book.thumbnail != null" [src]="book.thumbnail" alt="book cover here">
+          <img class="book-img" *ngIf="book.thumbnail == null && book.uploadImage != null" [src]="book.uploadImage" alt="book cover here">
+          <img class="book-img" *ngIf="book.thumbnail == null && book.uploadImage == null" src="../../../assets/cover-not-found.jpg" alt="book cover here">
         </td>
       </tr>
       <tr *ngIf="book.title != null">

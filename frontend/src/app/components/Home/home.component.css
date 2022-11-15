@@ -19,6 +19,16 @@
     margin-left: -10px;
 }
 
+th, b{
+  font-size: 1.5rem;
+}
+
+.logo{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
 .my-container{
   margin: 15px;
   height: 85vh;
@@ -31,6 +41,11 @@
   left: 33vw;
 }
 
+.book-img {
+  width: 100%;
+  height: 30vh;
+}
+
 table thead, table tbody tr {
   display: table;
   width: 100%;
@@ -41,14 +56,17 @@ table {
   display: block;
   overflow: auto;
   width: 95vw;
+  text-align: center;
 }
 
 tbody{
   display: block;
   overflow: auto;
   max-height: 75vh;
+  text-align: center;
 }
 
 tbody > tr{
   height: 30vh;
+  margin-bottom: 15px;
 }

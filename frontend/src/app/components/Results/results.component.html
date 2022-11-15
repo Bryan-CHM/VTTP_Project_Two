@@ -13,7 +13,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" [routerLink]="['/']">
-      <img src="../../assets/book.svg" alt="" width="30" height="30">
+      <img src="../../assets/logo.jpg" class="logo" alt="" width="30" height="30">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -48,13 +48,17 @@
     </div>
   </nav>
 <div class="my-container">
-  Welcome, {{user.email}}
+  <h4>
+    Welcome, {{user.email}}
+  </h4>
   <div>
     <h1>Search Results for: {{query}}</h1>
   </div>
   <div class="card-deck">
     <div class="card" *ngFor="let book of queriedBooks" (click)="selectBook(book)">
-      <img class="card-img-top" [src]="book.thumbnail" alt="Card image cap">
+      <img class="card-img-top" *ngIf="book.thumbnail != null" [src]="book.thumbnail" alt="book cover here">
+      <img class="card-img-top" *ngIf="book.thumbnail == null && book.uploadImage != null" [src]="book.uploadImage" alt="book cover here">
+      <img class="card-img-top" *ngIf="book.thumbnail == null && book.uploadImage == null" src="../../../assets/cover-not-found.jpg" alt="book cover here">
       <div class="card-body">
         <h5 class="card-title">{{book.title}}</h5>
       </div>

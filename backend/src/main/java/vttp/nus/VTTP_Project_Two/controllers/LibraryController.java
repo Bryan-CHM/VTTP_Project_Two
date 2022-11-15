@@ -6,15 +6,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -24,7 +28,6 @@ import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
 import jakarta.json.JsonValue;
 import vttp.nus.VTTP_Project_Two.models.Book;
-import vttp.nus.VTTP_Project_Two.models.User;
 import vttp.nus.VTTP_Project_Two.repositories.LibraryRepository;
 import vttp.nus.VTTP_Project_Two.services.LibraryService;
 
@@ -95,6 +98,74 @@ public class LibraryController {
         }
     }
 
+    @PostMapping(path = "/upload")
+    public ResponseEntity<String> uploadBook(
+        @RequestPart String title,
+        @RequestPart(required = false) String authors,
+        @RequestPart(required = false) String description,
+        @RequestPart(required = false) String publisher,
+        @RequestPart(required = false) String publishedDate,
+        @RequestPart(required = false) String pageCount,
+        @RequestPart(required = false) String quantity,
+        @RequestPart(required = false) MultipartFile uploadImage){
+
+            Book book = new Book();
+            if(!title.equals(" ")){
+                book.setTitle(Optional.of(title));
+            }else{
+                book.setTitle(Optional.empty());
+            }
+            if(!authors.equals(" ")){
+                book.setAuthors(Optional.of(authors));
+            }else{
+                book.setAuthors(Optional.empty());
+            }
+            if(!description.equals(" ")){
+                book.setDescription(Optional.of(description));
+            }else{
+                book.setDescription(Optional.empty());
+            }
+            if(!publisher.equals(" ")){
+                book.setPublisher(Optional.of(publisher));
+            }else{
+                book.setPublisher(Optional.empty());
+            }
+            if(!publishedDate.equals(" ")){
+                book.setPublishedDate(Optional.of(publishedDate));
+            }else{
+                book.setPublishedDate(Optional.empty());
+            }
+            if(!pageCount.equals(" ")){
+                book.setPageCount(Optional.of(Integer.parseInt(pageCount)));
+            }else{
+                book.setPageCount(Optional.empty());
+            }
+            if(!quantity.equals(" ")){
+                book.setQuantity(Optional.of(Integer.parseInt(quantity)));
+            }else{
+                book.setQuantity(Optional.empty());
+            }
+            try {
+                if(uploadImage != null){
+                    book.setUploadedImageStream(Optional.of(uploadImage.getInputStream()));
+                }else{
+                    book.setUploadedImageStream(Optional.empty());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectBuilder respObjBuilder = Json.createObjectBuilder();
+            if(libRepo.addUploadedBook(book) == 1){
+                respObjBuilder.add("status", true);
+                return ResponseEntity.ok(respObjBuilder.build().toString());
+            }else{
+                respObjBuilder.add("status", false);
+                return ResponseEntity.ok(respObjBuilder.build().toString());
+            }
+    }
+    
+
     @PostMapping(path = "/list/user", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getUserListOfBooks(@RequestBody String payload){
 
@@ -102,7 +173,12 @@ public class LibraryController {
         JsonReader reader = Json.createReader(is);							// Create reader for inputstream
         JsonObject data = reader.readObject();								// Convert string to JSON object
 
-        String query = "%" + data.getString("query") + "%";
+        String query = "";
+        if(data.getString("query").equals(" ")){
+            query = "%%";
+        }else{
+            query = "%" + data.getString("query") + "%";
+        }
         List<Book> books = libRepo.getUserListOfBooks(query);
 
         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
@@ -119,12 +195,17 @@ public class LibraryController {
             JsonReader reader = Json.createReader(is);							// Create reader for inputstream
             JsonObject data = reader.readObject();								// Convert string to JSON object
     
-            String query = "%" + data.getString("query") + "%";
+            String query = "";
+            if(data.getString("query").equals(" ")){
+                query = "%%";
+            }else{
+                query = "%" + data.getString("query") + "%";
+            }
             List<Book> books = libRepo.getUserNextListOfBooks(query, index);
     
             JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
             for(Book b : books){
-                arrBuilder.add(b.toJson());
+                arrBuilder.add(b.toJsonForUser());
             }
             return ResponseEntity.ok(arrBuilder.build().toString());
             }

@@ -1,8 +1,12 @@
 package vttp.nus.VTTP_Project_Two.models;
 
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -20,6 +24,8 @@ public class Book {
     private Optional<Integer> pageCount;
     private Optional<Integer> quantity;
     private Optional<String> duration;
+    private Optional<byte[]> uploadedImage;
+    private Optional<InputStream> uploadedImageStream;
 
     public Optional<String> getTitle() {
         return title;
@@ -91,6 +97,22 @@ public class Book {
 
     public void setDuration(Optional<String> duration) {
         this.duration = duration;
+    }
+
+    public Optional<byte[]> getUploadedImage() {
+        return uploadedImage;
+    }
+
+    public Optional<InputStream> getUploadedImageStream() {
+        return uploadedImageStream;
+    }
+
+    public void setUploadedImageStream(Optional<InputStream> uploadedImageStream) {
+        this.uploadedImageStream = uploadedImageStream;
+    }
+
+    public void setUploadedImage(Optional<byte[]> uploadedImage) {
+        this.uploadedImage = uploadedImage;
     }
 
     public static Book createFromAPI(JsonObject o){
@@ -256,6 +278,9 @@ public class Book {
         }
         if(duration.isPresent()){
             objBuilder.add("duration", duration.get());
+        }
+        if(uploadedImage.isPresent()){
+            objBuilder.add("uploadImage", Base64.getEncoder().encodeToString(uploadedImage.get())); 
         }
         if(authors.isPresent()){
             objBuilder.add("authors", authors.get()
