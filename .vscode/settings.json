@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///c%3A/Users/Bryan/Desktop/VTTP_Project_Two/.github/workflows/deploy.yaml"
+    }
+}

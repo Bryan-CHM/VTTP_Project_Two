@@ -1,0 +1,1 @@
+insert into user(email, password, admin) values ('admin@elib.com', sha1('password'), true);

@@ -1,0 +1,55 @@
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 50%;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px;
+}
+
+.my-container{
+  margin: 30px;
+  height: 80vh;
+}
+.center-next{
+  position: absolute;
+  top: 95%;
+  left: 51vw;
+}
+
+.center-prev{
+  position: absolute;
+  top: 95%;
+  left: 45vw;
+}
+
+.card-deck{
+  max-height: 67.5vh;
+  overflow:auto;
+}
+
+.card {
+  flex: 1 0 21% !important;
+  max-width: 21%;
+  margin-bottom: 15px !important;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 40vh;
+  border-radius: 5px;
+}
