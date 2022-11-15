@@ -15,7 +15,7 @@ body {
   width: 100vw;
   margin: -8px;
   background-image: url(../../../assets/library.jpg);
-  background-size:auto;
+  background-size:cover;
 }
 
 h1 {
@@ -137,7 +137,7 @@ input {
 	transform: translateX(100%);
 	opacity: 1;
 	z-index: 5;
-	/* animation: show 0.6s; */
+	animation: show 0.6s;
 }
 
 @keyframes show {
@@ -245,7 +245,7 @@ footer a {
 }
 
 .logo{
-  width: 15vw;
+  width: 10vw;
   border-radius: 50%;
   margin-bottom: 25px;
 }
