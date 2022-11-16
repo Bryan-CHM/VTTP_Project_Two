@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elib-deploy
+  labels:
+    name: elib
+  namespace: myns
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      name: elib-po
+  template:
+    metadata:
+      name: elib-po
+      labels:
+        name: elib-po
+    spec:
+      containers:
+      - name: elib-container
+        image: bryanchm/elib:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: elib-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elib-svc-lb
+  namespace: myns
+spec:
+  type: LoadBalancer
+  selector:
+    name: elib-po
+  ports:
+    - name: p80
+      port: 80
+      targetPort: 8080
+
+# Currently deployed at 188.166.196.102
+    

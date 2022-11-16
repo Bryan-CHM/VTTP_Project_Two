@@ -1,1 +1,11 @@
+vttp\nus\VTTP_Project_Two\repositories\UserRepository.class
+vttp\nus\VTTP_Project_Two\models\Book.class
+vttp\nus\VTTP_Project_Two\repositories\LibraryRepository.class
 vttp\nus\VTTP_Project_Two\VttpProjectTwoApplication.class
+vttp\nus\VTTP_Project_Two\services\EmailService.class
+vttp\nus\VTTP_Project_Two\repositories\Queries.class
+vttp\nus\VTTP_Project_Two\controllers\LoginController.class
+vttp\nus\VTTP_Project_Two\models\EmailDetails.class
+vttp\nus\VTTP_Project_Two\services\LibraryService.class
+vttp\nus\VTTP_Project_Two\models\User.class
+vttp\nus\VTTP_Project_Two\controllers\LibraryController.class
